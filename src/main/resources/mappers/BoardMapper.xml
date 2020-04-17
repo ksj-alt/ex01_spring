@@ -25,4 +25,13 @@
 		delete from tbl_board
 		where bno=#{bno}
 	</delete>
+	<select id="listPage" resultType="BoardVO">
+		select * from tbl_board order by bno desc limit #{page}, 10
+	</select>
+	<select id="listCriteria" resultType="BoardVO">
+		select * from tbl_board order by bno desc limit #{pageStart}, #{perPageNum}
+	</select>
+	<select id="totalCount" resultType="int">
+		select count(bno) from tbl_board
+	</select>
 </mapper>

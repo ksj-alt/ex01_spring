@@ -7,6 +7,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.yi.domain.BoardVO;
+import com.yi.domain.Criteria;
 import com.yi.persistence.BoardDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -53,5 +54,18 @@ public class BoardDAOTest {
 //	@Test
 	public void testDelete() throws Exception {
 		dao.delete(1);
+	}
+	
+//	@Test
+	public void testListPage() throws Exception {
+		dao.listPage(2);
+	}
+	
+	@Test
+	public void testListCriteria() throws Exception{
+		Criteria cri = new Criteria();
+		cri.setPage(2); //2번째 페이지 게시글 10개
+		cri.setPerPageNum(5);
+		dao.listCriteria(cri);
 	}
 }

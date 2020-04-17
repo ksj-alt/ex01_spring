@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yi.domain.BoardVO;
+import com.yi.domain.Criteria;
+import com.yi.domain.PageMaker;
 import com.yi.service.BoardService;
 
 @Controller
@@ -46,8 +48,67 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/remove", method=RequestMethod.GET)
-	public String remove(int bno, Model model) throws Exception{
+	public String remove(int bno) throws Exception{
 		service.delete(bno);
 		return "redirect:/board/list";
 	}
+	
+	@RequestMapping(value="/board/modify", method=RequestMethod.GET)
+	public String modify(int bno, Model model) throws Exception {
+		BoardVO vo = service.readByNo(bno);
+		model.addAttribute("board", vo);
+		return "/board/modify";
+	}
+	
+	@RequestMapping(value="/board/modify", method=RequestMethod.POST)
+	public String update(BoardVO vo, Model model) throws Exception {
+		service.update(vo);
+		model.addAttribute("board", vo);
+		return "/board/read";
+	}
+	
+	@RequestMapping(value="/board/listPage", method=RequestMethod.GET)
+	public String listPage(Criteria cri, Model model) throws Exception {
+		List<BoardVO> list = service.listCriteria(cri);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(service.totalCount());
+		
+		model.addAttribute("list", list);
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "board/listPage";
+	}
+	
+	@RequestMapping(value="/board/readPage", method=RequestMethod.GET)
+	public String readPage(int bno, Criteria cri, Model model) throws Exception {
+		BoardVO vo = service.readByNo(bno);
+		model.addAttribute("board", vo);
+		model.addAttribute("cri", cri);
+		return "/board/readPage";
+	}
+	
+	@RequestMapping(value="/board/removePage", method=RequestMethod.GET)
+	public String removePage(int bno, Criteria cri, Model model) throws Exception{
+		service.delete(bno);
+		return "redirect:/board/listPage?page=" + cri.getPage();
+	}
+	
+	@RequestMapping(value="/board/modifyPage", method=RequestMethod.GET)
+	public String modifyPage(int bno, Criteria cri, Model model) throws Exception {
+		BoardVO vo = service.readByNo(bno);
+		model.addAttribute("board", vo);
+		model.addAttribute("cri", cri);
+		return "/board/modifyPage";
+	}
+	
+	@RequestMapping(value="/board/modifyPage", method=RequestMethod.POST)
+	public String updatePage(BoardVO vo, Criteria cri, Model model) throws Exception {
+		service.update(vo);
+		model.addAttribute("board", vo);
+		model.addAttribute("cri", cri);
+		return "redirect:/board/readPage?bno="+ vo.getBno() + "&page=" + cri.getPage();
+	}
+	
 }

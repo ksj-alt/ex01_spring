@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yi.domain.BoardVO;
+import com.yi.domain.Criteria;
 import com.yi.persistence.BoardDAO;
 
 @Service
@@ -32,5 +33,13 @@ public class BoardService {
 	
 	public void delete(int bno) throws Exception{
 		dao.delete(bno);
+	}
+	
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception{
+		return dao.listCriteria(cri);
+	}
+
+	public int totalCount() throws Exception {
+		return dao.totalCount();
 	}
 }

@@ -5,17 +5,17 @@
 <script>
 	$(function(){
 		$("#goList").click(function(){
-			location.href="${pageContext.request.contextPath }/board/listPage?";
+			location.href="${pageContext.request.contextPath }/board/listPage?page=${cri.page}";
 		})
 		
 		$("#remove").click(function(){
 			var no = $(this).attr("data-bno");
-			location.href="${pageContext.request.contextPath }/board/remove?bno="+no;
+			location.href="${pageContext.request.contextPath }/board/removePage?bno="+no+"&page=${cri.page}";
 		})
 		
 		$("#modify").click(function(){
 			var no = $(this).attr("data-bno");
-			location.href="${pageContext.request.contextPath }/board/modify?bno="+no;
+			location.href="${pageContext.request.contextPath }/board/modifyPage?bno="+no+"&page=${cri.page}";
 		})
 	})
 </script>
