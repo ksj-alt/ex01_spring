@@ -45,6 +45,11 @@
 						<label>Writer</label>
 						<input type="text" class="form-control" value="${board.writer }" readonly>
 					</div>
+					<div class="form-group">
+						<c:forEach var="file" items="${board.files }">
+							<img src="displayFile?filename=${file }">
+						</c:forEach>
+					</div>
 				</div>
 				<div class="box-footer">
 					<button class="btn btn-warning" id="modify" data-bno=${board.bno }>Modify</button>

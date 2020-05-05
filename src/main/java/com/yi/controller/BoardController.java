@@ -111,4 +111,5 @@ public class BoardController {
 		return "redirect:/board/readPage?bno="+ vo.getBno() + "&page=" + cri.getPage();
 	}
 	
+	
 }
