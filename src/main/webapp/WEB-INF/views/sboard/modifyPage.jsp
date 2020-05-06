@@ -3,6 +3,10 @@
 <%@ include file="../include/header.jsp" %>
 
 <style>
+	#dropBox img{
+		width:200px;
+		height:200px;
+	}
 	div.delItem{
 		float: left;
 		position: relative;
@@ -20,6 +24,23 @@
 
 <script>
 	$(function(){
+		$("#files").change(function() {
+			//var file = $(this)[0].files[0]; // $(this)[0] : javascript 객체
+			
+			var files = $(this)[0].files;
+			//var file = e.target.files;        https://greatps1215.tistory.com/5
+			console.log(files);
+			$("#dropBox").empty();
+ 			for(var i = 0; i<files.length;i++){
+				var reader = new FileReader(); //javascript 객체
+				reader.readAsDataURL(files[i]);
+				reader.onload = function(e){
+					var $img = $("<img>").attr("src", e.target.result);
+					$("#dropBox").append($img);
+				}
+ 			}
+		})
+		
 		$(".check").on('click', function(){
 			if($(this).prop('checked')){
 				$(this).parent().addClass("checked");
@@ -58,7 +79,7 @@
 						<div class="form-group">
 							<label>Writer</label>
 							<input type="text" class="form-control" value="${board.writer }" name="writer">
-						</div>
+						</div>						
 						<div class="form-group">
 						<c:forEach var="file" items="${board.files }">
 							<div class="delItem">
