@@ -108,6 +108,7 @@ public class SearchBoardController {
 	
 	@RequestMapping(value="/modifyPage", method=RequestMethod.POST)
 	public String updatePage(BoardVO vo, SearchCriteria cri, String[] imgFile, Model model) throws Exception {
+		
 		for(String imgFiles : imgFile) {
 			service.removeAttach(imgFiles);
 			System.out.println(imgFiles);

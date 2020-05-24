@@ -56,7 +56,7 @@
 						<div class="form-group">
 							<label>Image Files</label>
 							<input type="file" name="imageFiles" class="form-control" multiple="multiple" id=files>
-						</div>	       
+						</div>
 					</div>
 					<div id="dropBox"></div>	       
 					<div class="box-footer">
